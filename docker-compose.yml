@@ -1,0 +1,19 @@
+services:
+  api:
+    build:
+      context: ./backend      # Контекст — папка backend
+      dockerfile: Dockerfile  # Dockerfile ищется внутри ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/app:/app/app # Монтируем только код для live-reload
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
