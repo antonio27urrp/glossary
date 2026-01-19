@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package glossary;
+
+// Определение сервиса глоссария
+service GlossaryService {
+  // 1. Получение списка всех терминов
+  rpc GetTerms(Empty) returns (TermList);
+  
+  // 2. Получение одного термина по слову
+  rpc GetTerm(KeywordRequest) returns (Term);
+  
+  // 3. Добавление нового термина
+  rpc AddTerm(Term) returns (Term);
+  
+  // 4. Обновление существующего термина
+  rpc UpdateTerm(Term) returns (Term);
+  
+  // 5. Удаление термина
+  rpc DeleteTerm(KeywordRequest) returns (DeleteResponse);
+}
+
+// Сообщения (структуры данных)
+
+message Empty {}
+
+message KeywordRequest {
+  string keyword = 1;
+}
+
+message DeleteResponse {
+  bool success = 1;
+}
+
+message Term {
+  string keyword = 1;
+  string description = 2;
+}
+
+message TermList {
+  repeated Term terms = 1;
+}
